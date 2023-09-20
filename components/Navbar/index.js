@@ -1,11 +1,12 @@
 import { Fragment } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { signOut } from "next-auth/react";
+import { useAppContext } from "@/context";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
-  { name: "Upload", href: "#", current: false },
-  { name: "Logout", href: "#", current: false },
+  { name: "Logout", href: "/signin", current: false },
 ];
 
 function classNames(...classes) {
@@ -13,8 +14,18 @@ function classNames(...classes) {
 }
 
 export default function Example() {
+  const { state, dispatch } = useAppContext();
+  const { searchTerm } = state;
+
+  const HandleChangeInput = (e) => {
+    e.preventDefault();
+
+    dispatch({ type: "SET_SEARCH_TERM", payload: e.target.value });
+    dispatch({ type: "SET_IS_TYPING", payload: true });
+  };
+
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-gray-800 mb-15">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -41,6 +52,8 @@ export default function Example() {
                   type="text"
                   placeholder="Search"
                   className="bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium w-2/4 "
+                  value={searchTerm}
+                  onChange={HandleChangeInput}
                 />
               </div>
 
@@ -86,20 +99,28 @@ export default function Example() {
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => (
-                <Disclosure.Button
+                <button
                   key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
+                  onClick={() => {
+                    if (item.name === "Logout") {
+                      signOut();
+                    }
+                  }}
                 >
-                  {item.name}
-                </Disclosure.Button>
+                  <Disclosure.Button
+                    key={item.name}
+                    as="a"
+                    className={classNames(
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium"
+                    )}
+                    aria-current={item.current ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                </button>
               ))}
             </div>
           </Disclosure.Panel>
