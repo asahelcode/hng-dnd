@@ -41,7 +41,8 @@ const Gallery = () => {
   }, [query, dispatch, isTyping]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 max-w-screen-lg mx-auto gap-8 mt-10 mb-10">
+    // <div className="">
+    <>
       <div className={`${loading ? "block" : "hidden"}`}>
         {loading && (
           <Skeleton
@@ -49,17 +50,12 @@ const Gallery = () => {
             height="200%"
             width="100%"
             count={10}
-            containerClassName="grid lg:grid-cols-4 md:grid-cols-3 gap-10"
+            containerClassName="grid lg:grid-cols-4 md:grid-cols-3 gap-10 md:mt-10"
           />
         )}
       </div>
-
       <Grid items={images} loading={loading} />
-
-      {/* {images?.map((image, index) => (
-        
-      ))} */}
-    </div>
+    </>
   );
 };
 
