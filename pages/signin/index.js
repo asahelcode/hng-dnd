@@ -24,7 +24,6 @@ export default function Signin() {
         setErrorMessage("User does not exist. Please try again");
       }
     } catch (err) {
-      console.log("Error during Login: ", err);
       setErrorMessage("Server Error. Please try again");
     }
   };
