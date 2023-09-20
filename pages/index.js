@@ -22,9 +22,6 @@ export default function Home() {
       <Layout>
         <Gallery />
       </Layout>
-      {/* <button className="text-black" onClick={() => signOut()}>
-        Logout
-      </button> */}
     </div>
   );
 }
