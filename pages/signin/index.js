@@ -1,6 +1,8 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
@@ -8,24 +10,19 @@ export default function Signin() {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
-  const handleSubmission = async () => {
+  const handleSubmission = async (e) => {
+    e.preventDefault();
     setErrorMessage("");
-    try {
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-        // callbackUrl: "/",
-      });
-
-      if (!result.error) {
+    signInWithEmailAndPassword(auth, email || "", password || "")
+      .then((userCredential) => {
         router.push("/");
-      } else {
+      })
+      .catch((error) => {
         setErrorMessage("User does not exist. Please try again");
-      }
-    } catch (err) {
-      setErrorMessage("Server Error. Please try again");
-    }
+
+        const errorMessage = error.message;
+        console.log(error);
+      });
   };
 
   return (

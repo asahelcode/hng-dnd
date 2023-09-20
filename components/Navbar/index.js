@@ -1,7 +1,8 @@
 import { Fragment } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { signOut } from "next-auth/react";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/router";
 import { useAppContext } from "@/context";
 
 const navigation = [
@@ -16,6 +17,7 @@ function classNames(...classes) {
 export default function Example() {
   const { state, dispatch } = useAppContext();
   const { searchTerm } = state;
+  const router = useRouter();
 
   const HandleChangeInput = (e) => {
     e.preventDefault();
@@ -103,7 +105,7 @@ export default function Example() {
                   key={item.name}
                   onClick={() => {
                     if (item.name === "Logout") {
-                      signOut();
+                      signOut(auth).then((val) => router.push("/signin"));
                     }
                   }}
                 >

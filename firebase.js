@@ -6,12 +6,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 export const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECTID,
-  // storageBucket: "hng-dnd.appspot.com",
-  // messagingSenderId: "221667754190",
-  appId: process.env.FIREBASE_APPID,
+  apiKey: "AIzaSyDy-8DO0nXAboI5gRGCnQrMVuzopiuMdQg",
+  authDomain: "hng-dnd.firebaseapp.com",
+  projectId: "hng-dnd",
+  storageBucket: "hng-dnd.appspot.com",
+  messagingSenderId: "221667754190",
+  appId: "1:221667754190:web:ffdddf550fc2b6d03e509f",
 };
 
 // Initialize Firebase
@@ -19,7 +19,3 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth();
 
 export { app, auth };
-// AIzaSyDy-8DO0nXAboI5gRGCnQrMVuzopiuMdQg
-// hng-dnd.firebaseapp.com
-// hng-dnd
-// 1:221667754190:web:ffdddf550fc2b6d03e509f
