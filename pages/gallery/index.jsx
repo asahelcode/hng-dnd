@@ -7,7 +7,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Grid from "@/components/Grid";
 
 const Gallery = () => {
-  const apiKey = "39553829-20c593789c441a532db0de841";
+  const apiKey = process.env.API_KEY;
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const { state, dispatch } = useAppContext();
